@@ -1,12 +1,16 @@
 import {
-    playSong
+    playMet,
+    testMessage
 } from './song.js';
 
-document.getElementById("btn").onclick = function () {
-    startSong();
-};
 
-function startSong() {
-    console.log("Ok");
-    playSong();
+let beatButton = document.getElementById("beatBtn");
+beatButton.addEventListener('click', function () {
+    playMet();
+});
+
+
+function mainTest() {
+    testMessage();
 }
+mainTest();
