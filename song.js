@@ -1,15 +1,19 @@
 let drumLoopPlaying = false;
 
 const drums = new Tone.MembraneSynth().toDestination();
-Tone.Transport.bpm.value = 120;
+const snare = new Tone.NoiseSynth().toDestination();
+const hiHat = new Tone.MetalSynth().toDestination();
+Tone.Transport.bpm.value = 240;
+
+const sec_4 = Tone.Time("4n").toSeconds();
 
 Tone.Transport.scheduleRepeat((time) => {
     const now = time;
-    drums.triggerAttackRelease("C1", 0.5, now);
-    drums.triggerAttackRelease("C5", 0.5, now + 0.5, 0.7);
-    drums.triggerAttackRelease("C3", 0.5, now + 1);
-    drums.triggerAttackRelease("C5", 0.5, now + 1.5, 0.7);
-}, 2);
+    drums.triggerAttackRelease("C1", "4n", now);
+    hiHat.triggerAttackRelease("C3", "8n", now + sec_4, 0.1);
+    snare.triggerAttackRelease("4n", now + (2*sec_4));
+    hiHat.triggerAttackRelease("C3", "8n", now + (3*sec_4), 0.1);
+}, "1m");
 
 export function drumLoop() {
     if (drumLoopPlaying) {
