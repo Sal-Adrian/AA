@@ -1,14 +1,25 @@
+
+let clicked = false;
+
+export function setClicked(val) {
+    clicked = val;
+}
+
+//////////////////////////////////////////////
+
 Tone.Transport.bpm.value = 240;
+const sec_8 = Tone.Time("8n").toSeconds();
+const sec_4 = Tone.Time("4n").toSeconds();
+const measure = Tone.Time("1m").toSeconds();
+
+//////////////////////////////////////////////
 
 let drumLoopPlaying = false;
 
 const bass = new Tone.MembraneSynth().toDestination();
 const snare = new Tone.NoiseSynth().toDestination();
 const hiHat = new Tone.MetalSynth().toDestination();
-
-const sec_8 = Tone.Time("8n").toSeconds();
-const sec_4 = Tone.Time("4n").toSeconds();
-const measure = Tone.Time("1m").toSeconds();
+const adaptClick = new Tone.Synth().toDestination();
 
 const drumID = Tone.Transport.scheduleRepeat((time) => {
     const now = time;
@@ -17,7 +28,10 @@ const drumID = Tone.Transport.scheduleRepeat((time) => {
 }, "1m");
 
 const hiHatID = Tone.Transport.scheduleRepeat((time) => {
-    hiHat.triggerAttackRelease("C3", "8n", time, 0.05);
+    if(clicked) {
+        adaptClick.triggerAttackRelease("Ab3", "8n", time, 0.5);
+        clicked = false;
+    } else hiHat.triggerAttackRelease("C3", "8n", time, 0.03);
 }, "4n");
 
 export function drumLoop() {
