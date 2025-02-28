@@ -1,21 +1,24 @@
+Tone.Transport.bpm.value = 240;
+
 let drumLoopPlaying = false;
 
-const drums = new Tone.MembraneSynth().toDestination();
+const bass = new Tone.MembraneSynth().toDestination();
 const snare = new Tone.NoiseSynth().toDestination();
 const hiHat = new Tone.MetalSynth().toDestination();
-Tone.Transport.bpm.value = 132;
 
 const sec_8 = Tone.Time("8n").toSeconds();
 const sec_4 = Tone.Time("4n").toSeconds();
 const measure = Tone.Time("1m").toSeconds();
 
-Tone.Transport.scheduleRepeat((time) => {
+const drumID = Tone.Transport.scheduleRepeat((time) => {
     const now = time;
-    drums.triggerAttackRelease("C1", "4n", now);
-    hiHat.triggerAttackRelease("C3", "8n", now + sec_4, 0.1);
+    bass.triggerAttackRelease("C1", "4n", now);
     snare.triggerAttackRelease("4n", now + (2*sec_4));
-    hiHat.triggerAttackRelease("C3", "8n", now + (3*sec_4), 0.1);
 }, "1m");
+
+const hiHatID = Tone.Transport.scheduleRepeat((time) => {
+    hiHat.triggerAttackRelease("C3", "8n", time, 0.05);
+}, "4n");
 
 export function drumLoop() {
     if (drumLoopPlaying) {
@@ -27,18 +30,18 @@ export function drumLoop() {
     console.log("Starting Drum Loop.")
     drumLoopPlaying = true;
     Tone.Transport.start();
+    Tone.Transport.clear(songID);
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+
+let songPlaying = false;
 
 const accomp = new Tone.PolySynth(Tone.AMSynth).toDestination();
 const singer = new Tone.MonoSynth().toDestination();
 
-// Currently programed for "All The Things You Are"
-export async function playSong() {
-    console.log("Starting Song.")
-    
-    let now = Tone.now();
-    
+const songID = Tone.Transport.scheduleRepeat((time) => {
+    const now = time;
     accomp.triggerAttackRelease(["F3, Ab3, C4, Eb4"], "1m");
     singer.triggerAttackRelease("Ab4", "1m");
     
@@ -110,11 +113,21 @@ export async function playSong() {
     singer.triggerAttackRelease("D4", "4n", 15*measure + sec_4 + now);
     singer.triggerAttackRelease("G4", "4n", 15*measure + 2*sec_4 + now);
     singer.triggerAttackRelease("D5", "4n", 15*measure + 3*sec_4 + now);
+}, "16m");
 
-    // accomp.triggerAttackRelease(["Ab2, B2, Eb3, Gb3"], "1m", 16*measure + now);
-    // accomp.triggerAttackRelease(["A2, C3, D3, Gb3"], "1m", 17*measure + now);
-
-    // accomp.triggerAttackRelease(["G2, B2, D3, Gb3"], "2m", 18*measure + now);
+// Currently programed for "All The Things You Are"
+export async function playSong() {
+    if (songPlaying) {
+        console.log("Stoping Song.")
+        songPlaying = false;
+        Tone.Transport.stop();
+        return;
+    }
+    console.log("Starting Song.")
+    songPlaying = true;
+    Tone.Transport.start();
+    Tone.Transport.clear(drumID);
+    Tone.Transport.clear(hiHatID);
 }
 
 export function testMessage() {
