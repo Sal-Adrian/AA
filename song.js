@@ -43,6 +43,7 @@ function drumLoop() {
     drumLoopPlaying = true;
     Tone.Transport.start();
     Tone.Transport.clear(songID);
+    Tone.Transport.clear(songClickID);
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -52,10 +53,34 @@ let songPlaying = false;
 const accomp = new Tone.PolySynth(Tone.AMSynth).toDestination();
 const singer = new Tone.MonoSynth().toDestination();
 
+const songClickID = Tone.Transport.scheduleRepeat((time) => {
+    if(clicked) {
+        adaptClick.triggerAttackRelease("Ab3", "8n", time);
+        clicked = false;
+    }
+}, "4n");
+
+let currChord = "m7";
+Tone.Transport.schedule(function(time){ currChord = "m7"; }, measure);
+Tone.Transport.schedule(function(time){ currChord = "7"; }, 2*measure);
+Tone.Transport.schedule(function(time){ currChord = "M7"; }, 3*measure);
+Tone.Transport.schedule(function(time){ currChord = "M7"; }, 4*measure);
+Tone.Transport.schedule(function(time){ currChord = "m7"; }, 5*measure);
+Tone.Transport.schedule(function(time){ currChord = "7"; }, 5*measure + 2*sec_4);
+Tone.Transport.schedule(function(time){ currChord = "M7"; }, 6*measure);
+Tone.Transport.schedule(function(time){ currChord = "m7"; }, 8*measure);
+Tone.Transport.schedule(function(time){ currChord = "m7"; }, 9*measure);
+Tone.Transport.schedule(function(time){ currChord = "7"; }, 10*measure);
+Tone.Transport.schedule(function(time){ currChord = "M7"; }, 11*measure);
+Tone.Transport.schedule(function(time){ currChord = "M7"; }, 12*measure);
+Tone.Transport.schedule(function(time){ currChord = "m7"; }, 13*measure);
+Tone.Transport.schedule(function(time){ currChord = "7"; }, 13*measure + 2*sec_4);
+Tone.Transport.schedule(function(time){ currChord = "M7"; }, 14*measure);
+
 const songID = Tone.Transport.scheduleRepeat((time) => {
     const now = time;
-    accomp.triggerAttackRelease(["F3, Ab3, C4, Eb4"], "1m");
-    singer.triggerAttackRelease("Ab4", "1m");
+    accomp.triggerAttackRelease(["F3, Ab3, C4, Eb4"], "1m", now);
+    singer.triggerAttackRelease("Ab4", "1m", now);
     
     accomp.triggerAttackRelease(["F3, Ab3, Bb3, Db4"], "1m", measure + now);
     singer.triggerAttackRelease("Db5", 3*sec_4, measure + now);
