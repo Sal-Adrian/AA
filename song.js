@@ -1,7 +1,5 @@
-
 let clicked = false;
-
-export function setClicked(val) {
+function setClicked(val) {
     clicked = val;
 }
 
@@ -34,7 +32,7 @@ const hiHatID = Tone.Transport.scheduleRepeat((time) => {
     } else hiHat.triggerAttackRelease("C3", "8n", time, 0.03);
 }, "4n");
 
-export function drumLoop() {
+function drumLoop() {
     if (drumLoopPlaying) {
         console.log("Stoping Drum Loop.")
         drumLoopPlaying = false;
@@ -130,7 +128,7 @@ const songID = Tone.Transport.scheduleRepeat((time) => {
 }, "16m");
 
 // Currently programed for "All The Things You Are"
-export async function playSong() {
+async function playSong() {
     if (songPlaying) {
         console.log("Stoping Song.")
         songPlaying = false;
@@ -144,6 +142,13 @@ export async function playSong() {
     Tone.Transport.clear(hiHatID);
 }
 
-export function testMessage() {
+function testMessage() {
     console.log("Ok");
 }
+
+export {
+    drumLoop,
+    playSong,
+    testMessage,
+    setClicked
+};
