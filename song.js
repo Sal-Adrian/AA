@@ -1,3 +1,8 @@
+import {
+    setCurr
+} from './adapt.js';
+
+
 let clicked = false;
 function setClicked(val) {
     clicked = val;
@@ -60,7 +65,8 @@ const songClickID = Tone.Transport.scheduleRepeat((time) => {
     }
 }, "4n");
 
-let currChord = "m7";
+setCurr(["F", "m7"]);
+let currChord = ":)"
 Tone.Transport.schedule(function(time){ currChord = "m7"; }, measure);
 Tone.Transport.schedule(function(time){ currChord = "7"; }, 2*measure);
 Tone.Transport.schedule(function(time){ currChord = "M7"; }, 3*measure);
