@@ -8,10 +8,13 @@ const SQL = await initSqlJs({
 let xhr = new XMLHttpRequest();
 xhr.responseType = 'arraybuffer';
 
-let noteI, curr;
+let noteI, curr, chord = [];
 function setCurr(c) {
     noteI = c[0]
     curr = c[1];
+}
+function getChord() {
+    return chord;
 }
 
 async function click() {
@@ -25,12 +28,17 @@ async function click() {
             WHERE Curr = ? AND D.Dist = 1 AND C.ProgID = D.ProgID 
             ORDER BY RANDOM() LIMIT 1`, [curr])[0].values[0];
         
-        console.log(contents);
+        chord = nextChord(noteI, contents[0], contents[1], "3");
+        for (let i = 0, j = 0; i < 4; i++) {
+            if (contents[i + 3] !== null) j += 1;
+            else chord.splice(j, 1);
+        }
     };
     xhr.send();
 }
 
 export { 
     click,
-    setCurr
+    setCurr,
+    getChord
 };

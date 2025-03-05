@@ -20,7 +20,7 @@ function nextChord(curr, next, type, octave) {
     if (type === "7" || type === "m7" || type === "o7") nextIndex -= 1;
     chrd.push(TONES[nextIndex % 12]);
 
-    for (let i = 0; i < chrd.length; i++) {
+    for (let i = 0; i < 4; i++) {
         chrd[i] += octave;
     }
 
