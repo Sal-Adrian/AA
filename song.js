@@ -1,5 +1,6 @@
 import {
-    setCurr
+    setCurr,
+    getChord
 } from './adapt.js';
 
 
@@ -11,6 +12,7 @@ function setClicked(val) {
 //////////////////////////////////////////////
 
 Tone.Transport.bpm.value = 240;
+const sec_16 = Tone.Time("16n").toSeconds();
 const sec_8 = Tone.Time("8n").toSeconds();
 const sec_4 = Tone.Time("4n").toSeconds();
 const measure = Tone.Time("1m").toSeconds();
@@ -60,7 +62,10 @@ const singer = new Tone.MonoSynth().toDestination();
 
 const songClickID = Tone.Transport.scheduleRepeat((time) => {
     if(clicked) {
-        adaptClick.triggerAttackRelease("Ab3", "8n", time);
+        let adaptChord = getChord();
+        for (let i = 0; i < adaptChord.length; i++) {
+            adaptClick.triggerAttackRelease(adaptChord[i], "8n", time + i*sec_16);
+        }
         clicked = false;
     }
 }, "4n");
