@@ -59,6 +59,7 @@ let songPlaying = false;
 
 const accomp = new Tone.PolySynth(Tone.AMSynth).toDestination();
 const singer = new Tone.MonoSynth().toDestination();
+accomp.volume.value = -8;
 singer.volume.value = -8;
 
 // // Arpeggiate
@@ -100,72 +101,72 @@ Tone.Transport.schedule(function(time){ setCurr(["G", "M7"]); }, 14*measure);
 
 const songID = Tone.Transport.scheduleRepeat((time) => {
     const now = time;
-    accomp.triggerAttackRelease(["F3, Ab3, C4, Eb4"], "1m", now);
+    accomp.triggerAttackRelease(["F3", "Ab3", "C4", "Eb4"], "1m", now);
     singer.triggerAttackRelease("Ab4", "1m", now);
     
-    accomp.triggerAttackRelease(["F3, Ab3, Bb3, Db4"], "1m", measure + now);
+    accomp.triggerAttackRelease(["F3", "Ab3", "Bb3", "Db4"], "1m", measure + now);
     singer.triggerAttackRelease("Db5", 3*sec_4, measure + now);
     singer.triggerAttackRelease("Ab4", "4n", measure + 3*sec_4 + now);
 
-    accomp.triggerAttackRelease(["Eb3, G3, Bb3, Db4"], "1m", 2*measure + now);
+    accomp.triggerAttackRelease(["Eb3", "G3", "Bb3", "Db4"], "1m", 2*measure + now);
     singer.triggerAttackRelease("G4", "4n", 2*measure + now);
     singer.triggerAttackRelease("G4", "4n", 2*measure + sec_4 + now);
     singer.triggerAttackRelease("G4", "4n", 2*measure + 2*sec_4 + now);
     singer.triggerAttackRelease("G4", "4n", 2*measure + 3*sec_4 + now);
 
-    accomp.triggerAttackRelease(["Eb3, G3, Ab3, C4"], "1m", 3*measure + now);
+    accomp.triggerAttackRelease(["Eb3", "G3", "Ab3", "C4"], "1m", 3*measure + now);
     singer.triggerAttackRelease("G4", "4n", 3*measure + now);
     singer.triggerAttackRelease("C5", "2n", 3*measure + sec_4 + now);
     singer.triggerAttackRelease("G4", "4n", 3*measure + 3*sec_4 + now);
 
-    accomp.triggerAttackRelease(["Db3, F3, Ab3, C4"], "1m", 4*measure + now);
+    accomp.triggerAttackRelease(["Db3", "F3", "Ab3", "C4"], "1m", 4*measure + now);
     singer.triggerAttackRelease("F4", "4n", 4*measure + now);
     singer.triggerAttackRelease("F4", "4n", 4*measure + 1*sec_4 + now);
     singer.triggerAttackRelease("F4", "4n", 4*measure + 2*sec_4 + now);
     singer.triggerAttackRelease("F4", "4n", 4*measure + 3*sec_4 + now);
 
-    accomp.triggerAttackRelease(["Db3, E3, Ab3, B3"], "2n", 5*measure + now);
+    accomp.triggerAttackRelease(["Db3", "E3", "Ab3", "B3"], "2n", 5*measure + now);
     singer.triggerAttackRelease("F4", "4n", 5*measure + now);
     singer.triggerAttackRelease("B4", "2n", 5*measure + sec_4 + now);
-    accomp.triggerAttackRelease(["D3, F3, G3, B3"], "2n", 5*measure + 2*sec_4 + now);
+    accomp.triggerAttackRelease(["D3", "F3", "G3", "B3"], "2n", 5*measure + 2*sec_4 + now);
     singer.triggerAttackRelease("F4", "4n", 5*measure + 3*sec_4 + now);
 
-    accomp.triggerAttackRelease(["C3, E3, G3, B3"], "2m", 6*measure + now);
+    accomp.triggerAttackRelease(["C3", "E3", "G3", "B3"], "2m", 6*measure + now);
     singer.triggerAttackRelease("E4", "2m", 6*measure + now);
 
-    accomp.triggerAttackRelease(["C3, Eb3, G3, Bb3"], "1m", 8*measure + now);
+    accomp.triggerAttackRelease(["C3", "Eb3", "G3", "Bb3"], "1m", 8*measure + now);
     singer.triggerAttackRelease("Eb4", "1m", 8*measure + now);
 
-    accomp.triggerAttackRelease(["C3, Eb3, F3, Ab3"], "1m", 9*measure + now);
+    accomp.triggerAttackRelease(["C3", "Eb3", "F3", "Ab3"], "1m", 9*measure + now);
     singer.triggerAttackRelease("Ab4", 3*sec_4, 9*measure + now);
     singer.triggerAttackRelease("Eb4", "4n", 9*measure + 3*sec_4 + now);
 
-    accomp.triggerAttackRelease(["Bb2, D3, F3, Ab3"], "1m", 10*measure + now);
+    accomp.triggerAttackRelease(["Bb2", "D3", "F3", "Ab3"], "1m", 10*measure + now);
     singer.triggerAttackRelease("D4", "4n", 10*measure + now);
     singer.triggerAttackRelease("D4", "4n", 10*measure + 1*sec_4 + now);
     singer.triggerAttackRelease("D4", "4n", 10*measure + 2*sec_4 + now);
     singer.triggerAttackRelease("D4", "4n", 10*measure + 3*sec_4 + now);
     
-    accomp.triggerAttackRelease(["Bb2, D3, Eb3, G3"], "1m", 11*measure + now);
+    accomp.triggerAttackRelease(["Bb2", "D3", "Eb3", "G3"], "1m", 11*measure + now);
     singer.triggerAttackRelease("D4", "4n", 11*measure + now);
     singer.triggerAttackRelease("G4", "2n", 11*measure + 1*sec_4 + now);
     singer.triggerAttackRelease("D4", "4n", 11*measure + 3*sec_4 + now);
 
-    accomp.triggerAttackRelease(["Ab2, C3, Eb3, G3"], "1m", 12*measure + now);
+    accomp.triggerAttackRelease(["Ab2", "C3", "Eb3", "G3"], "1m", 12*measure + now);
     singer.triggerAttackRelease("C4", "4n", 12*measure + now);
     singer.triggerAttackRelease("C4", "4n", 12*measure + 1*sec_4 + now);
     singer.triggerAttackRelease("C4", "4n", 12*measure + 2*sec_4 + now);
     singer.triggerAttackRelease("C4", "4n", 12*measure + 3*sec_4 + now);
 
-    accomp.triggerAttackRelease(["Ab2, B2, Eb3, Gb3"], "2n", 13*measure + now);
+    accomp.triggerAttackRelease(["Ab2", "B2", "Eb3", "Gb3"], "2n", 13*measure + now);
     singer.triggerAttackRelease("C4", "4n", 13*measure + now);
     singer.triggerAttackRelease("D4", "8n", 13*measure + sec_4 + now);
     singer.triggerAttackRelease("Eb4", "8n", 13*measure + sec_4 + sec_8 + now);
-    accomp.triggerAttackRelease(["A2, C3, D3, Gb3"], "2n", 13*measure + 2*sec_4 + now);
+    accomp.triggerAttackRelease(["A2", "C3", "D3", "Gb3"], "2n", 13*measure + 2*sec_4 + now);
     singer.triggerAttackRelease("D4", "4n", 13*measure + 2*sec_4 + now);
     singer.triggerAttackRelease("C4", "4n", 13*measure + 3*sec_4 + now);
 
-    accomp.triggerAttackRelease(["G2, B2, D3, Gb3"], "2m", 14*measure + now);
+    accomp.triggerAttackRelease(["G2", "B2", "D3", "Gb3"], "2m", 14*measure + now);
     singer.triggerAttackRelease("B3", measure+sec_4, 14*measure + now);
 
     singer.triggerAttackRelease("D4", "4n", 15*measure + sec_4 + now);
