@@ -11,7 +11,7 @@ function setClicked(val) {
 
 //////////////////////////////////////////////
 
-Tone.Transport.bpm.value = 240;
+Tone.Transport.bpm.value = 120;
 const sec_16 = Tone.Time("16n").toSeconds();
 const sec_8 = Tone.Time("8n").toSeconds();
 const sec_4 = Tone.Time("4n").toSeconds();
@@ -24,7 +24,7 @@ let drumLoopPlaying = false;
 const bass = new Tone.MembraneSynth().toDestination();
 const snare = new Tone.NoiseSynth().toDestination();
 const hiHat = new Tone.MetalSynth().toDestination();
-const adaptClick = new Tone.Synth().toDestination();
+const adaptClick = new Tone.MonoSynth().toDestination();
 
 const drumID = Tone.Transport.scheduleRepeat((time) => {
     const now = time;
@@ -59,34 +59,34 @@ let songPlaying = false;
 
 const accomp = new Tone.PolySynth(Tone.AMSynth).toDestination();
 const singer = new Tone.MonoSynth().toDestination();
+singer.volume.value = -8;
 
 const songClickID = Tone.Transport.scheduleRepeat((time) => {
     if(clicked) {
         let adaptChord = getChord();
         for (let i = 0; i < adaptChord.length; i++) {
-            adaptClick.triggerAttackRelease(adaptChord[i], "8n", time + i*sec_16);
+            adaptClick.triggerAttackRelease(adaptChord[i], "8n", time + i*sec_16);  
         }
         clicked = false;
     }
 }, "4n");
 
 setCurr(["F", "m7"]);
-let currChord = ":)"
-Tone.Transport.schedule(function(time){ currChord = "m7"; }, measure);
-Tone.Transport.schedule(function(time){ currChord = "7"; }, 2*measure);
-Tone.Transport.schedule(function(time){ currChord = "M7"; }, 3*measure);
-Tone.Transport.schedule(function(time){ currChord = "M7"; }, 4*measure);
-Tone.Transport.schedule(function(time){ currChord = "m7"; }, 5*measure);
-Tone.Transport.schedule(function(time){ currChord = "7"; }, 5*measure + 2*sec_4);
-Tone.Transport.schedule(function(time){ currChord = "M7"; }, 6*measure);
-Tone.Transport.schedule(function(time){ currChord = "m7"; }, 8*measure);
-Tone.Transport.schedule(function(time){ currChord = "m7"; }, 9*measure);
-Tone.Transport.schedule(function(time){ currChord = "7"; }, 10*measure);
-Tone.Transport.schedule(function(time){ currChord = "M7"; }, 11*measure);
-Tone.Transport.schedule(function(time){ currChord = "M7"; }, 12*measure);
-Tone.Transport.schedule(function(time){ currChord = "m7"; }, 13*measure);
-Tone.Transport.schedule(function(time){ currChord = "7"; }, 13*measure + 2*sec_4);
-Tone.Transport.schedule(function(time){ currChord = "M7"; }, 14*measure);
+Tone.Transport.schedule(function(time){ setCurr(["Bb", "m7"]); }, measure);
+Tone.Transport.schedule(function(time){ setCurr(["Eb", "7"]); }, 2*measure);
+Tone.Transport.schedule(function(time){ setCurr(["Ab", "M7"]); }, 3*measure);
+Tone.Transport.schedule(function(time){ setCurr(["Db", "M7"]); }, 4*measure);
+Tone.Transport.schedule(function(time){ setCurr(["D", "m7"]); }, 5*measure);
+Tone.Transport.schedule(function(time){ setCurr(["G", "7"]); }, 5*measure + 2*sec_4);
+Tone.Transport.schedule(function(time){ setCurr(["C", "M7"]); }, 6*measure);
+Tone.Transport.schedule(function(time){ setCurr(["C", "m7"]); }, 8*measure);
+Tone.Transport.schedule(function(time){ setCurr(["F", "m7"]); }, 9*measure);
+Tone.Transport.schedule(function(time){ setCurr(["Bb", "7"]); }, 10*measure);
+Tone.Transport.schedule(function(time){ setCurr(["Eb", "M7"]); }, 11*measure);
+Tone.Transport.schedule(function(time){ setCurr(["Ab", "M7"]); }, 12*measure);
+Tone.Transport.schedule(function(time){ setCurr(["A", "m7"]); }, 13*measure);
+Tone.Transport.schedule(function(time){ setCurr(["D", "7"]); }, 13*measure + 2*sec_4);
+Tone.Transport.schedule(function(time){ setCurr(["G", "M7"]); }, 14*measure);
 
 const songID = Tone.Transport.scheduleRepeat((time) => {
     const now = time;
