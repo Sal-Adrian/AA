@@ -24,7 +24,7 @@ let drumLoopPlaying = false;
 const bass = new Tone.MembraneSynth().toDestination();
 const snare = new Tone.NoiseSynth().toDestination();
 const hiHat = new Tone.MetalSynth().toDestination();
-const adaptClick = new Tone.MonoSynth().toDestination();
+const adaptClick = new Tone.PolySynth().toDestination();
 
 const drumID = Tone.Transport.scheduleRepeat((time) => {
     const now = time;
@@ -61,15 +61,25 @@ const accomp = new Tone.PolySynth(Tone.AMSynth).toDestination();
 const singer = new Tone.MonoSynth().toDestination();
 singer.volume.value = -8;
 
+// // Arpeggiate
 const songClickID = Tone.Transport.scheduleRepeat((time) => {
     if(clicked) {
         let adaptChord = getChord();
         for (let i = 0; i < adaptChord.length; i++) {
-            adaptClick.triggerAttackRelease(adaptChord[i], "8n", time + i*sec_16);  
+            adaptClick.triggerAttackRelease(adaptChord[i], "16n", time + i*sec_16);
         }
         clicked = false;
     }
-}, "4n");
+}, "8n");
+
+// // Chord
+// const songClickID = Tone.Transport.scheduleRepeat((time) => {
+//     if(clicked) {
+//         let adaptChord = getChord();
+//         adaptClick.triggerAttackRelease(adaptChord, "8n", time);
+//         clicked = false;
+//     }
+// }, "8n");
 
 setCurr(["F", "m7"]);
 Tone.Transport.schedule(function(time){ setCurr(["Bb", "m7"]); }, measure);
