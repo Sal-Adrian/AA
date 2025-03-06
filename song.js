@@ -63,24 +63,24 @@ accomp.volume.value = -8;
 singer.volume.value = -8;
 
 // // Arpeggiate
-const songClickID = Tone.Transport.scheduleRepeat((time) => {
-    if(clicked) {
-        let adaptChord = getChord();
-        for (let i = 0; i < adaptChord.length; i++) {
-            adaptClick.triggerAttackRelease(adaptChord[i], "16n", time + i*sec_16);
-        }
-        clicked = false;
-    }
-}, "8n");
-
-// // Chord
 // const songClickID = Tone.Transport.scheduleRepeat((time) => {
 //     if(clicked) {
 //         let adaptChord = getChord();
-//         adaptClick.triggerAttackRelease(adaptChord, "8n", time);
+//         for (let i = 0; i < adaptChord.length; i++) {
+//             adaptClick.triggerAttackRelease(adaptChord[i], "16n", time + i*sec_16);
+//         }
 //         clicked = false;
 //     }
 // }, "8n");
+
+// // Chord
+const songClickID = Tone.Transport.scheduleRepeat((time) => {
+    if(clicked) {
+        let adaptChord = getChord();
+        adaptClick.triggerAttackRelease(adaptChord, "8n", time);
+        clicked = false;
+    }
+}, "8n");
 
 setCurr(["F", "m7"]);
 Tone.Transport.schedule(function(time){ setCurr(["Bb", "m7"]); }, measure);

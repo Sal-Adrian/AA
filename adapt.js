@@ -25,7 +25,7 @@ async function click() {
         let uInt8Array = new Uint8Array(this.response);
         let db = new SQL.Database(uInt8Array);
         let contents = db.exec(`SELECT Next, Type, D.Dist, n1, n2, n3, n4 FROM ChordProg C, DistTable D 
-            WHERE Curr = ? AND D.Dist = 1 AND C.ProgID = D.ProgID 
+            WHERE Curr = ? AND D.Dist = 1 AND C.ProgID = D.ProgID AND NumNotes > 2 AND Type != "o7"
             ORDER BY RANDOM() LIMIT 1`, [curr])[0].values[0];
         
         chord = nextChord(noteI, contents[0], contents[1], "3");
