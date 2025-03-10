@@ -5,14 +5,16 @@
     <script src="https://unpkg.com/tone"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"></script>
     <script src="index.js" type="module" defer="true"></script>
-    <title>Adaptorhythm</title>
-    
+    <title>Asteroids</title>
 </head>
 <body>
+    <script>
+        function loadPage() {
+            window.location="Asteroids.html";
+        }
+    </script>
     <p style="margin-top: 200px;"></p>
-    <p>Beat: <button id="beatBtn">Start/Stop</button></p>
-    <p>Song: <button id="songBtn">Start</button></p>
-    <p style="margin-top: 50px;"></p>
-    <p>Click: <button id="clickBtn">CLICK!</button></p>
+    <p>Beat: </p>
+    <input type = "button" id = "btnApply" value = "Register" onclick="loadPage()">
 </body>
 </html>
