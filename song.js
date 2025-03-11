@@ -126,8 +126,23 @@ bass2.set({
     "loopEnd" : 20*mesr + 2*trip_4
 })
 
+const bass3 = new Tone.ToneEvent( function(time) {
+    bass.triggerAttackRelease("G2", "16n", time, 2.5);
+    bass.triggerAttackRelease("G2", "16n", time + sec_8);
+    bass.triggerAttackRelease("G2", "16n", time + sec_4);
+    bass.triggerAttackRelease("G2", "16n", time + sec_4 + sec_8, 2.5);
+    bass.triggerAttackRelease("G2", "16n", time + sec_2);
+    bass.triggerAttackRelease("G2", "16n", time + sec_2 + sec_8);
+    bass.triggerAttackRelease("Ab2", "8n", time + sec_2 + sec_4, 2.5);
+    bass.triggerAttackRelease("Bb2", "8n", time + sec_2 + sec_4 + sec_8, 2.5);
+});
+bass3.set({
+    "loop" : true,
+    "loopEnd" : "1m"
+})
+
 async function playSong() {
-    bass2.start();
+    bass3.start();
 }
 
 function testMessage() {
