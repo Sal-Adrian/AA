@@ -31,11 +31,10 @@ const snare = new Tone.NoiseSynth({
     noise : {type:"pink"},
     envelope : {decay: 0.65}
 }).toDestination();
-// WARNING: MetalSynth seems to cause lag spikes when it is first scheduled.
-// Maybe choose a different synth sound?
-const hiHat = new Tone.MetalSynth({
-    volume : -24,
-    envelope : {decay: 0.15}
+const hiHat = new Tone.NoiseSynth({
+    volume : -12,
+    noise : {type:"white"},
+    envelope : {decay: 0.2}
 }).toDestination();
 
 //////////////////////////////////////////////
@@ -74,24 +73,24 @@ const bass2 = new Tone.ToneEvent( function(time) {
     bass.triggerAttackRelease("Eb2", "4t", time + trip_4);
     bass.triggerAttackRelease("D2", "4t", time + 2*trip_4);
     bass.triggerAttackRelease("F2", 2*mesr + trip_4, time+sec_2);
-    offset = 2*mesr+sec_4+trip_4;
+    offset = 2*mesr+sec_2+trip_4;
     bass.triggerAttackRelease("B1", "4t", offset+time);
     bass.triggerAttackRelease("C2", "4t", offset+time + trip_4);
     bass.triggerAttackRelease("B1", "4t", offset+time + 2*trip_4);
     bass.triggerAttackRelease("D2", 2*mesr + trip_4, offset+time+sec_2);
 
-    offset += 2*mesr+sec_4+trip_4;
+    offset += 2*mesr+sec_2+trip_4;
     bass.triggerAttackRelease("D2", "4t", offset+time);
     bass.triggerAttackRelease("Eb2", "4t", offset+time + trip_4);
     bass.triggerAttackRelease("D2", "4t", offset+time + 2*trip_4);
     bass.triggerAttackRelease("F2", 2*mesr + trip_4, offset+time+sec_2);
-    offset += 2*mesr+sec_4+trip_4;
+    offset += 2*mesr+sec_2+trip_4;
     bass.triggerAttackRelease("B1", "4t", offset+time);
     bass.triggerAttackRelease("C2", "4t", offset+time + trip_4);
     bass.triggerAttackRelease("B1", "4t", offset+time + 2*trip_4);
     bass.triggerAttackRelease("D2", 2*mesr + trip_4, offset+time+sec_2);
 
-    offset += 2*mesr+sec_4+trip_4;
+    offset += 2*mesr+sec_2+trip_4;
     bass.triggerAttackRelease("D2", "4t", offset+time);
     bass.triggerAttackRelease("Eb2", "4t", offset+time + trip_4);
     bass.triggerAttackRelease("D2", "4t", offset+time + 2*trip_4);
@@ -132,10 +131,12 @@ const bass2 = new Tone.ToneEvent( function(time) {
     bass.triggerAttackRelease("C2", "4t", offset+time + trip_4);
     bass.triggerAttackRelease("B1", "4t", offset+time + 2*trip_4);
     bass.triggerAttackRelease("C2", sec_2 + 2*trip_4, offset+time+sec_2);
+    console.log(offset + mesr+2*trip_4)
+    console.log(21*mesr)
 });
 bass2.set({
     "loop" : true,
-    "loopEnd" : 20*mesr + 2*trip_4
+    "loopEnd" : 21*mesr + 2*trip_4
 })
 
 const bass3 = new Tone.ToneEvent( function(time) {
@@ -156,25 +157,25 @@ bass3.set({
 const drum1 = new Tone.ToneEvent( function(time) {
     let offset = 0;
     snare.triggerAttackRelease("4t", time, 0.5);
-    hiHat.triggerAttackRelease("G1", "4t", time, 0.75);
-    hiHat.triggerAttackRelease("G1", "4t", time + trip_4, 0.25);
-    hiHat.triggerAttackRelease("G1", "4t", time + 2*trip_4, 0.25);
-    hiHat.triggerAttackRelease("G1", "4t", time + 3*trip_4, 0.75);
-    hiHat.triggerAttackRelease("G1", "4t", time + 4*trip_4, 0.25);
-    hiHat.triggerAttackRelease("G1", "4t", time + 5*trip_4, 0.25);
-    hiHat.triggerAttackRelease("G1", "4t", time + 6*trip_4, 0.75);
-    hiHat.triggerAttackRelease("G1", "4t", time + 7*trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", time, 0.75);
+    hiHat.triggerAttackRelease("4t", time + trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", time + 2*trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", time + 3*trip_4, 0.75);
+    hiHat.triggerAttackRelease("4t", time + 4*trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", time + 5*trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", time + 6*trip_4, 0.75);
+    hiHat.triggerAttackRelease("4t", time + 7*trip_4, 0.25);
 
     offset = mesr + 2*trip_4;
     snare.triggerAttackRelease("4t", offset+time);
-    hiHat.triggerAttackRelease("G1", "4t", offset+time, 0.75);
-    hiHat.triggerAttackRelease("G1", "4t", offset+time + trip_4, 0.25);
-    hiHat.triggerAttackRelease("G1", "4t", offset+time + 2*trip_4, 0.25);
-    hiHat.triggerAttackRelease("G1", "4t", offset+time + 3*trip_4, 0.75);
-    hiHat.triggerAttackRelease("G1", "4t", offset+time + 4*trip_4, 0.25);
-    hiHat.triggerAttackRelease("G1", "4t", offset+time + 5*trip_4, 0.25);
-    hiHat.triggerAttackRelease("G1", "4t", offset+time + 6*trip_4, 0.75);
-    hiHat.triggerAttackRelease("G1", "4t", offset+time + 7*trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", offset+time, 0.75);
+    hiHat.triggerAttackRelease("4t", offset+time + trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", offset+time + 2*trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", offset+time + 3*trip_4, 0.75);
+    hiHat.triggerAttackRelease("4t", offset+time + 4*trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", offset+time + 5*trip_4, 0.25);
+    hiHat.triggerAttackRelease("4t", offset+time + 6*trip_4, 0.75);
+    hiHat.triggerAttackRelease("4t", offset+time + 7*trip_4, 0.25);
 });
 drum1.set({
     "loop" : true,
@@ -183,6 +184,7 @@ drum1.set({
 
 async function playSong() {
     drum1.start();
+    bass2.start();
 }
 
 function testMessage() {
