@@ -29,27 +29,27 @@ const bass = new Tone.Synth({
 //////////////////////////////////////////////
 
 const bass1 = new Tone.ToneEvent( function(time) {
-    let offset = time;
-    bass.triggerAttackRelease("D2", "4t", offset);
-    bass.triggerAttackRelease("D2", "4t", offset + trip_4);
-    bass.triggerAttackRelease("D2", "4t", offset + 2*trip_4);
-    bass.triggerAttackRelease("Eb2", mesr + sec_2, offset + sec_2);
+    let offset = 0;
+    bass.triggerAttackRelease("D2", "4t", time);
+    bass.triggerAttackRelease("D2", "4t", time + trip_4);
+    bass.triggerAttackRelease("D2", "4t", time + 2*trip_4);
+    bass.triggerAttackRelease("Eb2", mesr + sec_2, time + sec_2);
     offset += 2*mesr;
-    bass.triggerAttackRelease("D2", "4t", offset);
-    bass.triggerAttackRelease("D2", "4t", offset + trip_4);
-    bass.triggerAttackRelease("D2", "4t", offset + 2*trip_4);
-    bass.triggerAttackRelease("Eb2", mesr + sec_2, offset + sec_2);
+    bass.triggerAttackRelease("D2", "4t", offset+time);
+    bass.triggerAttackRelease("D2", "4t", offset+time + trip_4);
+    bass.triggerAttackRelease("D2", "4t", offset+time + 2*trip_4);
+    bass.triggerAttackRelease("Eb2", mesr + sec_2, offset+time + sec_2);
 
     offset += 2*mesr;
-    bass.triggerAttackRelease("B1", "4t", offset);
-    bass.triggerAttackRelease("B1", "4t", offset + trip_4);
-    bass.triggerAttackRelease("B1", "4t", offset + 2*trip_4);
-    bass.triggerAttackRelease("C2", mesr + sec_2, offset + sec_2);
+    bass.triggerAttackRelease("B1", "4t", offset+time);
+    bass.triggerAttackRelease("B1", "4t", offset+time + trip_4);
+    bass.triggerAttackRelease("B1", "4t", offset+time + 2*trip_4);
+    bass.triggerAttackRelease("C2", mesr + sec_2, offset+time + sec_2);
     offset += 2*mesr;
-    bass.triggerAttackRelease("B1", "4t", offset);
-    bass.triggerAttackRelease("B1", "4t", offset + trip_4);
-    bass.triggerAttackRelease("B1", "4t", offset + 2*trip_4);
-    bass.triggerAttackRelease("C2", mesr + sec_2, offset + sec_2);
+    bass.triggerAttackRelease("B1", "4t", offset+time);
+    bass.triggerAttackRelease("B1", "4t", offset+time + trip_4);
+    bass.triggerAttackRelease("B1", "4t", offset+time + 2*trip_4);
+    bass.triggerAttackRelease("C2", mesr + sec_2, offset+time + sec_2);
 });
 bass1.set({
     "loop" : true,
