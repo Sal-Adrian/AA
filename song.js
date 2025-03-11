@@ -22,8 +22,20 @@ const mesr = Tone.Time("1m").toSeconds();
 //////////////////////////////////////////////
 
 const bass = new Tone.Synth({
-    volume : 3,
+    volume : 0,
     oscillator : {type:"sine"}
+}).toDestination();
+
+const snare = new Tone.NoiseSynth({
+    volume : -8,
+    noise : {type:"pink"},
+    envelope : {decay: 0.65}
+}).toDestination();
+// WARNING: MetalSynth seems to cause lag spikes when it is first scheduled.
+// Maybe choose a different synth sound?
+const hiHat = new Tone.MetalSynth({
+    volume : -24,
+    envelope : {decay: 0.15}
 }).toDestination();
 
 //////////////////////////////////////////////
@@ -141,8 +153,36 @@ bass3.set({
     "loopEnd" : "1m"
 })
 
+const drum1 = new Tone.ToneEvent( function(time) {
+    let offset = 0;
+    snare.triggerAttackRelease("4t", time, 0.5);
+    hiHat.triggerAttackRelease("G1", "4t", time, 0.75);
+    hiHat.triggerAttackRelease("G1", "4t", time + trip_4, 0.25);
+    hiHat.triggerAttackRelease("G1", "4t", time + 2*trip_4, 0.25);
+    hiHat.triggerAttackRelease("G1", "4t", time + 3*trip_4, 0.75);
+    hiHat.triggerAttackRelease("G1", "4t", time + 4*trip_4, 0.25);
+    hiHat.triggerAttackRelease("G1", "4t", time + 5*trip_4, 0.25);
+    hiHat.triggerAttackRelease("G1", "4t", time + 6*trip_4, 0.75);
+    hiHat.triggerAttackRelease("G1", "4t", time + 7*trip_4, 0.25);
+
+    offset = mesr + 2*trip_4;
+    snare.triggerAttackRelease("4t", offset+time);
+    hiHat.triggerAttackRelease("G1", "4t", offset+time, 0.75);
+    hiHat.triggerAttackRelease("G1", "4t", offset+time + trip_4, 0.25);
+    hiHat.triggerAttackRelease("G1", "4t", offset+time + 2*trip_4, 0.25);
+    hiHat.triggerAttackRelease("G1", "4t", offset+time + 3*trip_4, 0.75);
+    hiHat.triggerAttackRelease("G1", "4t", offset+time + 4*trip_4, 0.25);
+    hiHat.triggerAttackRelease("G1", "4t", offset+time + 5*trip_4, 0.25);
+    hiHat.triggerAttackRelease("G1", "4t", offset+time + 6*trip_4, 0.75);
+    hiHat.triggerAttackRelease("G1", "4t", offset+time + 7*trip_4, 0.25);
+});
+drum1.set({
+    "loop" : true,
+    "loopEnd" : 2*mesr + sec_2 + trip_4
+})
+
 async function playSong() {
-    bass3.start();
+    drum1.start();
 }
 
 function testMessage() {
