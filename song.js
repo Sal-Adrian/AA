@@ -26,6 +26,16 @@ const bass = new Tone.Synth({
     oscillator : {type:"sine"}
 }).toDestination();
 
+const bassDrum = new Tone.MembraneSynth({
+    volume : 2,
+    envelope : {
+        attack : 0.5 ,
+        decay : 0.1 ,
+        sustain : 0.05 ,
+        release : 1.4 ,
+        attackCurve : "exponential"
+    }
+}).toDestination();
 const snare = new Tone.NoiseSynth({
     volume : -8,
     noise : {type:"pink"},
@@ -182,9 +192,19 @@ drum1.set({
     "loopEnd" : 2*mesr + sec_2 + trip_4
 })
 
+const drum2 = new Tone.ToneEvent( function(time) {
+    bassDrum.triggerAttackRelease("G1", "8n", time);
+    snare.triggerAttackRelease("8n", time + 3*sec_4, 0.65);
+    snare.triggerAttackRelease("8n", time + mesr, 0.85);
+});
+drum2.set({
+    "loop" : true,
+    "loopEnd" : "2m"
+})
+
 async function playSong() {
-    drum1.start();
-    bass2.start();
+    drum2.start();
+    bass3.start();
 }
 
 function testMessage() {
