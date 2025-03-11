@@ -1,7 +1,7 @@
 import {
     playSong,
     testMessage
-} from './song.js';
+} from './music/song.js';
 
 const songButton = document.getElementById("songBtn");
 songButton.addEventListener('click', async function () {
