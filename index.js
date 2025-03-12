@@ -14,5 +14,6 @@ function mainTest() {
     testMessage();
 }
 mainTest();
-// await Tone.start();
-// playSong();
+await Tone.start();
+Tone.Transport.start();
+playSong();

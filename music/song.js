@@ -49,10 +49,55 @@ const melBridge = getMelBridge();
 
 function getBPM () { return 160; }
 
+const intro = new Tone.ToneEvent( function(time) {
+    bass1.start(time);
+    mel1.start(time);
+});
+const introOff = new Tone.ToneEvent( function(time) {
+    bass1.set ({"loop" : false});
+    mel1.set ({"loop" : false});
+});
+
+
+const part1 = new Tone.ToneEvent( function(time) {
+    bass2.start(time);
+    mel2.start(time);
+    drum1.start(time);
+});
+const part1Off = new Tone.ToneEvent( function(time) {
+    bass2.set ({"loop" : false});
+    mel2.set ({"loop" : false});
+    drum1.set ({"loop" : false});
+});
+
+const bridge = new Tone.ToneEvent( function(time) {
+    drumBridge.start(time);
+    melBridge.start(time + 2*mesr);
+});
+
+const part2 = new Tone.ToneEvent( function(time) {
+    bass3.start(time);
+    mel3.start(time);
+    mel4.start(time + 4*mesr);
+    drum2.start(time);
+}); 
+
 //////////////////////////////////////////////
 
-async function playSong() {
-    drumBridge.start();
+function playSong() {
+    let offset = 0;
+    intro.start(Tone.now());
+
+    offset += 16*mesr;
+    introOff.start(Tone.now() + offset - sec_2);
+    part1.start(Tone.now() + offset);
+
+    offset += 21*mesr + 2*trip_4;
+    part1Off.start(Tone.now() + offset - sec_2);
+    bridge.start(Tone.now() + offset);
+
+    offset += 3*mesr
+    part2.start(Tone.now() + offset);
 }
 
 function testMessage() {
