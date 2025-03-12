@@ -27,6 +27,20 @@ const mel_3 = new Tone.MembraneSynth({
     volume : -20
 }).toDestination();
 
+const reverb = new Tone.Reverb({
+    decay : 50 ,
+    preDelay : 0.1
+}).toDestination();
+const mel_4 = new Tone.MonoSynth({
+    volume : -16,
+    envelope : {
+        attack : 5 ,
+        decay : 0.1 ,
+        sustain : 0.6 ,
+        release : 0.001
+    }
+}).connect(reverb);
+
 //////////////////////////////////////////////////
 
 const mel1 = new Tone.ToneEvent( function(time) {
@@ -146,12 +160,34 @@ mel3.set({
     "loopEnd" : "1m"
 })
 
+const mel4 = new Tone.ToneEvent( function(time) {
+    let offset = 0;
+    mel_4.triggerAttackRelease("B3", 2*mesr, time);
+    offset += 2*mesr;
+    mel_4.triggerAttackRelease("D4", "2m", offset+time);
+    mel_4.triggerAttackRelease("A3", "4m", offset+time + 2*mesr);
+    mel_4.triggerAttackRelease("C4", "2m", offset+time + 6*mesr);
+    mel_4.triggerAttackRelease("G4", 2*mesr, offset+time + 8*mesr);
+    offset += 10*mesr;
+    mel_4.triggerAttackRelease("D4", mesr + sec_2, offset+time);
+    mel_4.triggerAttackRelease("Eb4", "4n", offset+time + mesr + sec_2);
+    mel_4.triggerAttackRelease("C4", "4n", offset+time + mesr + 3*sec_4);
+    offset += 2*mesr;
+    mel_4.triggerAttackRelease("D4", "2m", offset+time);
+});
+mel4.set({
+    "loop" : true,
+    "loopEnd" : "16m"
+})
+
 
 function getMel1 () { return mel1; }
 function getMel2 () { return mel2; }
 function getMel3 () { return mel3; }
+function getMel4 () { return mel4; }
 export {
     getMel1,
     getMel2,
-    getMel3
+    getMel3,
+    getMel4
 }
