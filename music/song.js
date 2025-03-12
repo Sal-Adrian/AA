@@ -15,7 +15,8 @@ import {
     getMel1,
     getMel2,
     getMel3,
-    getMel4
+    getMel4,
+    getMelBridge
 } from './melody.js';
 
 Tone.Transport.bpm.value = getBPM();
@@ -40,6 +41,7 @@ const mel1 = getMel1();
 const mel2 = getMel2();
 const mel3 = getMel3();
 const mel4 = getMel4();
+const melBridge = getMelBridge();
 
 //////////////////////////////////////////////
 
@@ -48,12 +50,7 @@ function getBPM () { return 160; }
 //////////////////////////////////////////////
 
 async function playSong() {
-    
-
-    mel3.start();
-    mel4.start(Tone.now() + 4*mesr);
-    bass3.start();
-    drum2.start();
+    melBridge.start();
 }
 
 function testMessage() {

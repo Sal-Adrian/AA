@@ -41,6 +41,14 @@ const mel_4 = new Tone.MonoSynth({
     }
 }).connect(reverb);
 
+const mel_5 = new Tone.Synth({
+    volume : -8
+}).toDestination();
+const melAccomp_5 = new Tone.PolySynth({
+    voice : Tone.Synth,
+    volume : -8
+}).toDestination();
+
 //////////////////////////////////////////////////
 
 const mel1 = new Tone.ToneEvent( function(time) {
@@ -180,14 +188,26 @@ mel4.set({
     "loopEnd" : "16m"
 })
 
+const melBridge = new Tone.ToneEvent( function(time) {
+    mel_5.triggerAttackRelease("F4", 2*trip_4, time);
+    melAccomp_5.triggerAttackRelease(["Db4", "A3"], 2*trip_4, time, 0.3);
+
+    mel_5.triggerAttackRelease("E4", 2*trip_4, time + 2*trip_4);
+    melAccomp_5.triggerAttackRelease(["C4", "Ab3"], 2*trip_4, time + 2*trip_4, 0.3);
+
+    mel_5.triggerAttackRelease("Eb4", 2*trip_4, time + 4*trip_4);
+    melAccomp_5.triggerAttackRelease(["B3", "G3"], 2*trip_4, time + 4*trip_4, 0.3);
+});
 
 function getMel1 () { return mel1; }
 function getMel2 () { return mel2; }
 function getMel3 () { return mel3; }
 function getMel4 () { return mel4; }
+function getMelBridge () { return melBridge; }
 export {
     getMel1,
     getMel2,
     getMel3,
-    getMel4
+    getMel4,
+    getMelBridge
 }
