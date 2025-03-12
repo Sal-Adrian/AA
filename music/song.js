@@ -13,7 +13,8 @@ import {
 } from './drum.js';
 import {
     getMel1,
-    getMel2
+    getMel2,
+    getMel3
 } from './melody.js';
 
 
@@ -36,10 +37,11 @@ async function playSong() {
     const drum2 = getDrum2();
     const mel1 = getMel1();
     const mel2 = getMel2();
+    const mel3 = getMel3();
 
-    mel2.start();
-    bass2.start();
-    // drum2.start();
+    mel3.start();
+    bass3.start();
+    drum2.start();
 }
 
 function testMessage() {

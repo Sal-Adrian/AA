@@ -23,6 +23,10 @@ const mel_2 = new Tone.MonoSynth({
         }
 }).toDestination();
 
+const mel_3 = new Tone.MembraneSynth({
+    volume : -20
+}).toDestination();
+
 //////////////////////////////////////////////////
 
 const mel1 = new Tone.ToneEvent( function(time) {
@@ -127,10 +131,27 @@ mel2.set({
     "loopEnd" : 10*mesr + 4*trip_4
 })
 
+const mel3 = new Tone.ToneEvent( function(time) {
+    mel_3.triggerAttackRelease("B2", "8n", time);
+    mel_3.triggerAttackRelease("Eb3", "8n", time + sec_8);
+    mel_3.triggerAttackRelease("G3", "8n", time + 2*sec_8);
+    mel_3.triggerAttackRelease("C3", "8n", time + 3*sec_8);
+    mel_3.triggerAttackRelease("E3", "8n", time + 4*sec_8);
+    mel_3.triggerAttackRelease("Ab3", "8n", time + 5*sec_8);
+    mel_3.triggerAttackRelease("G3", "8n", time + 6*sec_8);
+    mel_3.triggerAttackRelease("D3", "8n", time + 7*sec_8);
+});
+mel3.set({
+    "loop" : true,
+    "loopEnd" : "1m"
+})
+
 
 function getMel1 () { return mel1; }
 function getMel2 () { return mel2; }
+function getMel3 () { return mel3; }
 export {
     getMel1,
-    getMel2
+    getMel2,
+    getMel3
 }
