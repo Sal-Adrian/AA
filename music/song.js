@@ -11,6 +11,9 @@ import {
     getDrum1, 
     getDrum2
 } from './drum.js';
+import {
+    getMel1
+} from './melody.js';
 
 
 let clicked = false;
@@ -30,9 +33,11 @@ async function playSong() {
     const bass3 = getBass3();
     const drum1 = getDrum1();
     const drum2 = getDrum2();
+    const mel1 = getMel1();
 
-    drum2.start();
-    bass3.start();
+    mel1.start();
+    bass1.start();
+    // drum2.start();
 }
 
 function testMessage() {
