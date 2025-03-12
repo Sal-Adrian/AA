@@ -12,7 +12,8 @@ import {
     getDrum2
 } from './drum.js';
 import {
-    getMel1
+    getMel1,
+    getMel2
 } from './melody.js';
 
 
@@ -34,9 +35,10 @@ async function playSong() {
     const drum1 = getDrum1();
     const drum2 = getDrum2();
     const mel1 = getMel1();
+    const mel2 = getMel2();
 
-    mel1.start();
-    bass1.start();
+    mel2.start();
+    bass2.start();
     // drum2.start();
 }
 

@@ -13,6 +13,16 @@ const mel = new Tone.Synth({
     oscillator : {type:"sine"}
 }).toDestination();
 
+const mel_2 = new Tone.MonoSynth({
+    volume : -20,
+    envelope : {
+        attack : 4 ,
+        decay : 1 ,
+        sustain : 0.5 ,
+        release : 1
+        }
+}).toDestination();
+
 //////////////////////////////////////////////////
 
 const mel1 = new Tone.ToneEvent( function(time) {
@@ -81,7 +91,46 @@ mel1.set({
     "loopEnd" : "16m"
 })
 
+const mel2 = new Tone.ToneEvent( function(time) {
+    let offset = 0;
+    mel_2.triggerAttackRelease("G4", mesr + 5*trip_4, time);
+    offset += mesr + 5*trip_4;
+    mel_2.triggerAttackRelease("F4", trip_4, offset+time);
+    mel_2.triggerAttackRelease("Ab4", trip_4, offset+time + trip_4);
+    mel_2.triggerAttackRelease("Eb4", trip_4, offset+time + 2*trip_4);
+    mel_2.triggerAttackRelease("F4", trip_4, offset+time + 3*trip_4);
+    mel_2.triggerAttackRelease("C4", trip_4, offset+time + 4*trip_4);
+
+    offset += 5*trip_4;
+    mel_2.triggerAttackRelease("Eb4", mesr + 5*trip_4, offset+time);
+    offset += mesr + 5*trip_4;
+    mel_2.triggerAttackRelease("D4", trip_4, offset+time);
+    mel_2.triggerAttackRelease("F4", trip_4, offset+time + trip_4);
+    mel_2.triggerAttackRelease("Eb4", trip_4, offset+time + 2*trip_4);
+    mel_2.triggerAttackRelease("D4", trip_4, offset+time + 3*trip_4);
+    mel_2.triggerAttackRelease("C4", trip_4, offset+time + 4*trip_4);
+
+    offset += 5*trip_4;
+    mel_2.triggerAttackRelease("D4", mesr, offset+time);
+    offset += mesr;
+    mel_2.triggerAttackRelease("Ab3", trip_4, offset+time);
+    mel_2.triggerAttackRelease("C4", trip_4, offset+time + trip_4);
+    offset += 2*trip_4;
+    mel_2.triggerAttackRelease("D4", mesr, offset+time);
+    mel_2.triggerAttackRelease("D4", 2*trip_4, offset+time + mesr);
+
+    offset += mesr + 2*trip_4;
+    mel_2.triggerAttackRelease("G3", 2*mesr + 4*trip_4, offset+time);
+});
+mel2.set({
+    "loop" : true,
+    "loopEnd" : 10*mesr + 4*trip_4
+})
+
+
 function getMel1 () { return mel1; }
+function getMel2 () { return mel2; }
 export {
-    getMel1
+    getMel1,
+    getMel2
 }
