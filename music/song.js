@@ -9,7 +9,8 @@ import {
 } from './bass.js';
 import { 
     getDrum1, 
-    getDrum2
+    getDrum2,
+    getdrumBridge
 } from './drum.js';
 import {
     getMel1,
@@ -37,6 +38,7 @@ const bass2 = getBass2();
 const bass3 = getBass3();
 const drum1 = getDrum1();
 const drum2 = getDrum2();
+const drumBridge = getdrumBridge();
 const mel1 = getMel1();
 const mel2 = getMel2();
 const mel3 = getMel3();
@@ -50,7 +52,7 @@ function getBPM () { return 160; }
 //////////////////////////////////////////////
 
 async function playSong() {
-    melBridge.start();
+    drumBridge.start();
 }
 
 function testMessage() {

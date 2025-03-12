@@ -28,6 +28,11 @@ const hiHat = new Tone.NoiseSynth({
     noise : {type:"white"},
     envelope : {decay: 0.2}
 }).toDestination();
+const cymbal = new Tone.NoiseSynth({
+    volume : -12,
+    noise : {type:"white"},
+    envelope : {decay: 2}
+}).toDestination();
 
 const drum1 = new Tone.ToneEvent( function(time) {
     let offset = 0;
@@ -67,9 +72,27 @@ drum2.set({
     "loopEnd" : "2m"
 })
 
+const drumBridge = new Tone.ToneEvent( function(time) {
+    // cymbal.triggerAttackRelease("2n", time);
+    bassDrum.triggerAttackRelease("G1", "8n", time);
+    hiHat.triggerAttackRelease("8n", time + trip_4);
+    snare.triggerAttackRelease("8n", time + 2*trip_4);
+    hiHat.triggerAttackRelease("8n", time + 3.5*trip_4);
+    bassDrum.triggerAttackRelease("G1", "8n", time + 4*trip_4);
+
+    bassDrum.triggerAttackRelease("G1", "8n", time + mesr);
+    snare.triggerAttackRelease("8n", time + mesr + trip_4);
+    cymbal.triggerAttackRelease("2n", time + mesr + sec_2);
+});
+drumBridge.set({
+    "loopEnd" : "2m"
+})
+
 function getDrum1 () { return drum1; }
 function getDrum2 () { return drum2; }
+function getdrumBridge () { return drumBridge; }
 export {
     getDrum1,
-    getDrum2
+    getDrum2,
+    getdrumBridge
 }
